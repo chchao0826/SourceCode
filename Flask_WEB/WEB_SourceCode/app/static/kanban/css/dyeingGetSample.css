@@ -1,0 +1,56 @@
+/* body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+.invoice {
+    background: #fff;
+    border: 1px solid #f4f4f4;
+    padding: 20px;
+    margin: 10px 25px;
+}
+.tag-style{
+    font-size: 45px;
+}
+.callout{
+    background-color: #fff !important;
+    color: #111;
+}
+.left-btn{
+    padding-left: 1px;
+}
+.title-div{
+    text-align: center;
+}
+.title-style{
+    font-size: 50px;
+}
+.left-btn{
+    height: 80px;
+    float: left;
+    background: #333;
+}
+.right-btn{
+    height: 80px;
+    float: right;
+    margin-top: -71px;
+    background: #333;
+} */
+
+
+.invoice{
+    height: 100%;
+}
+.left-div{
+    float: left;
+    width: 80%;
+    border-right: 1px solid #111;
+    height: 100%;
+}
+.right-div{
+    float: left;
+    width: 20%;
+    height: 100%;
+}

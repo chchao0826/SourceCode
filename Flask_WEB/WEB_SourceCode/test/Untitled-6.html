@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>JS实现双击编辑可修改状态</title>
+    <meta http-equiv="content-type" content="text/html;charset=gb2312">
+    <script type="text/javascript">
+        function ShowElement(element) {
+            var oldhtml = element.innerHTML;
+            var newobj = document.createElement('input');
+            //创建新的input元素
+            newobj.type = 'text';
+            //为新增元素添加类型
+            newobj.onblur = function () {
+                element.innerHTML = this.value ? this.value : oldhtml;
+                //当触发时判断新增元素值是否为空，为空则不修改，并返回原有值 
+            }
+            element.innerHTML = '';
+            element.appendChild(newobj);
+            newobj.focus();
+        }
+    </script>
+</head>
+
+<body>
+    <dl>
+        <dt>你的用户名:</dt>
+        <dd ondblclick="ShowElement(this)">三人行团队</dd>
+        <dt>你的个性档</dt>
+        <dd ondblclick="ShowElement(this)">我闪故我在</dd>
+    </dl>
+</body>
+
+</html>
+
+希望本文所述对大家的

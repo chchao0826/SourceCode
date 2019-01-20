@@ -1,0 +1,277 @@
+{% extends 'expect/base.html' %}
+
+{% block title %}染色{% endblock %}
+
+{% block css %}
+<style>
+    .page-number{
+        float: left;
+        margin-left: -40px;
+    }
+    .page-number > li > a {
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+
+    .activeClass {
+        background: #2176FF;
+        color: #fff;
+        }
+    .td-input {
+        border: 0px aliceblue;
+        width: 40px;
+    }
+    .page-btn{
+        margin-left: -4px;
+        width: 40px;
+        height: 40px;
+    }
+    .page-center{
+        margin-left: 40%;
+    }
+
+    .active{
+        background: #337ab7 !important;
+    }
+
+
+</style>
+<link rel="stylesheet" href=" {{url_for('static',filename='expect/css/bootstrap-editable.css')}} " />
+{% endblock %}
+
+{% block main %}
+<div id="CardNo_Data">
+    <table class="table table-striped">
+        <tbody id="pageMain">
+            <tr>
+                <th hidden = true >ID</th>
+                <th>机台号</th>
+                <th>工卡号</th>
+                <th>物料编号</th>
+                <th>色号</th>
+                <th>重量</th>
+                <th>预排时间</th>
+                <th>上工段完成时间</th>
+                <th>编辑</th>
+            </tr>
+            {% for var in ReturnValue %}
+            <tr>
+                <td hidden = true> <input class="td-input" type="text" readonly id="id-{{var.id}}" value="{{var.id}}">  </td>
+                <td> <a href="" id="sEquipmentNo-{{var.id}}" class="editEquipment">{{var.sEquipmentNo}}</a></td>
+                <td> {{var.sCardNo}} </td>
+                <td> {{var.sMaterialNo}} </td>
+                <td> {{var.sColorNo}} </td>
+                <td> {{var.nFactInPutQty}} </td>
+                <td> {{var.tExpectTime}} </td>
+                <td> {{var.tFactEndTime}} </td>
+                <td> <button id="save-{{var.id}}" onclick="saveBtn('save-{{var.id}}')">保存</button> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!-- 隐藏的机台 -->
+<div hidden = true>
+    <ul>
+        {% for var in equipmentList %}
+        <li name = 'equipment'> {{var.sEquipmentNo}} </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination page-center">
+
+        {% for var in range(pageMax) %}
+        {% if var > 0 %}
+        <li name="page" id="page{{var}}" value = "{{var}}"  >
+            <button type="button" name="pageBtn" id="btn{{var}}" class="btn btn-default page-btn" onmousedown = "skipPage('page{{var}}')" onmouseup="moveAction('btn{{var}}')" >{{ var }}</button>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+    </ul>
+</nav>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{url_for('static',filename='expect/js/jQuery-2.2.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='expect/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='expect/js/app.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='expect/js/bootstrap-editable.js')}}"></script>
+
+
+<!-- 文内编辑 -->
+<script>
+    function editLine() {
+        var equimentArray = []
+        var equipmentList = document.getElementsByName('equipment')
+        for (i = 0; i < equipmentList.length; i++){
+            equimentDict = {
+                value : i,
+                text : equipmentList[i].innerHTML,
+            }
+            equimentArray.push(equimentDict)
+            // console.log('123333')
+        }
+        $('.editEquipment').editable({
+            type: "select",
+            source: equimentArray,
+            title: "选择部门",
+            disabled: false,
+            emptytext: "空文本",
+            mode: "popup",
+            validate: function (value) { 
+                if (!$.trim(value)) {
+                    return '不能为空';
+                }
+            }
+        });
+    };
+</script>
+
+<!-- AJAX翻页 -->
+<script>
+    var page = document.getElementById('btn1')
+    page.classList.add("active");
+
+//  翻页操作
+    function skipPage(id){
+        var StrUrl = window.location.href;
+        StrUrl = StrUrl.split('/');
+        StrUrl = StrUrl[5]
+        var pageNum = document.getElementById(id)
+        pageNum = pageNum.value
+        returnValue = StrUrl + '_' + pageNum
+        $('#CardNo_Data').load('/expect/dyeing/page/' + returnValue)
+        
+        // console.log(111111)
+        
+    }
+
+    
+    function moveAction(id){
+        editLine()
+        var pageBtn = document.getElementsByName('pageBtn')
+        for (var i = 0; i < pageBtn.length; i++){
+            var pageString = pageBtn[i].classList.toString()
+            console.log(pageString)
+            console.log(pageString.indexOf('active'))
+            if (pageString.indexOf('active') > 1) {
+                console.log('123')
+                pageBtn[i].classList.remove('active')
+            }}
+        var pageNum = document.getElementById(id)
+        pageNum.classList.add("active")
+    }
+    editLine()
+</script>
+
+
+
+<!-- 单个保存按钮AJAX -->
+<script>
+    function saveBtn(id) {
+        id = id.split('-')[1]
+        // 卡号ID的值
+        var sCardID = document.getElementById('id-' + id).value
+        // 机台的值
+        var sEquipmentNo = document.getElementById('sEquipmentNo-' + id).innerHTML
+        var dataArr = []
+        var dataDict = {'id' : sCardID, 'sEquipmentNo' : sEquipmentNo}
+        dataArr.push(dataDict)
+        var dataJson = JSON.stringify(dataArr)
+        $.ajax({
+            url:'/expect/dyeing/save',
+            type: "POST",
+            contentType: "json",
+            data: dataJson,
+            dataType: "text",
+            success: function(result) {
+                console.log(result)
+            },
+            error: function(msg) {
+                $(".notice").html("Error" + msg)
+            }
+        })
+        console.log(dataJson)
+    }
+</script>
+
+
+<!-- <script>
+    //复选框数据提交
+    $("#btn_Save").click(function () {
+        var mychk = document.getElementsByName("mychk");
+        var nid = document.getElementsByName("nid");
+        var data_arr = [];
+        //遍历复选框
+        for (var i = 0; i < mychk.length; i++) {
+            var mychk_var = mychk[i].checked;
+            var nid_var = nid[i].innerText;
+            var data_dict = {}
+            data_dict['id'] = nid_var
+            data_dict['value'] = mychk_var
+            data_arr.push(data_dict)
+        }
+        //转换为JSON数据格式
+        var data_json = JSON.stringify(data_arr)
+        //POST返回
+        $.ajax({
+            url: "/kanban/choose/",
+            type: "POST",
+            contentType: "json",
+            data: data_json,
+            dataType: "text",
+            success: function (result) {
+                console.log(result)
+            },
+            error: function (msg) {
+                $(".notice").html('Error:' + msg);
+            }
+        })
+
+    });
+</script> -->
+
+
+
+<!-- 按input进行搜索的AJAX
+<script>
+    $(document).ready(function () {
+        //机台AJAX
+
+        $('#search').click(function () {
+            var input_var = document.getElementById('search_input')
+
+            var svar = ''
+            if (input_var.value == '') {
+                svar = 'all'
+            } else {
+                svar = input_var.value
+            }
+            $('#CardNo_Data').load('/expect/dyeing/' + svar)
+            console.log(1)
+
+
+        });
+        $('#search').mouseout(function () {
+            var page = document.getElementById('page0')
+            page.classList.add("active");
+        })
+
+    })
+    // 换页操作
+</script> -->
+
+
+
+{% endblock %}

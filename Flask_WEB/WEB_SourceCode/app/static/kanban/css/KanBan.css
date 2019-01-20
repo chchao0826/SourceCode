@@ -1,0 +1,55 @@
+.float_left{
+    float: left;
+}
+.float_right{
+    float: right;
+}
+.border{
+    border: 1px solid #ddd;
+}
+.border_none{
+    border: 0px;
+}
+.border_bottom{
+    border-bottom: 1px solid #ddd;
+}
+.border_right{
+    border-right: 1px solid #ddd;
+}
+.border_left{
+    border-left: 1px solid #ddd;
+}
+.text_center{
+    text-align: center
+}
+li{
+    margin:0; padding:0; 
+    list-style: none;
+}
+.DX_Mic_Box{
+    width: 100%;
+    height: 180px;
+}
+.title_div{
+    height: 90px;
+    line-height: 90px;
+}
+.list_div{
+    height: 90px;
+    width: 1200px;
+    margin-left:0px;
+}
+.title_style{
+    width: 100px;
+    height: 90px;
+    font-size: 30px;
+    line-height: 90px;
+    padding: 20px;
+}
+.text_style{
+    width: 100px;
+    height: 90px;
+    font-size: 30px;
+    line-height: 90px;
+    padding: 20px;
+}

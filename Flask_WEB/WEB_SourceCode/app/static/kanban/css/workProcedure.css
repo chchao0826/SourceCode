@@ -1,0 +1,63 @@
+body{
+    margin: 0 auto;
+}
+li{
+    list-style-type: none;
+}
+.border{
+    border: 1px solid #ddd;
+}
+.border_none{
+    border: 0px;
+}
+.border_bottom{
+    border-bottom: 1px solid #ddd;
+}
+.border_right{
+    border-right: 1px solid #ddd;
+}
+.border_left{
+    border-left: 1px solid #ddd;
+}
+.float_left{
+    float: left;
+}
+.text_center{
+    text-align: center;
+}
+.TJ_box{
+    width: 425px;
+    height: 140px;
+    margin-left: 12px;
+}
+.SX_box{
+    width: 284px;
+    height: 140px;
+    margin-left: 12px;
+}
+.DX_box{
+    width: 707px;
+    height: 140px;
+    margin-left: 12px;
+}
+.DYE_box{
+    width: 1835px;
+    height: 300px;
+    margin-left: 12px;
+    margin-top: 55px;
+}
+.YB_box{
+    width: 566px;
+    height: 140px;
+    margin-left: 12px;
+    margin-top: 30px;
+}
+.mic_div{
+    width: 140px;
+    height: 26px;
+    line-height: 26px;
+}
+.title_div{
+    height: 30px;
+    line-height: 30px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>KanBan - {% block title %}{% endblock %}</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/bootstrap.css')}} "/>
+    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/base.css')}} "/>
+    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/AdminLTE.css')}} "/>
+
+<style>
+      * {
+        font-family: "Microsoft YaHei";
+      }
+    </style>
+    {% block css %} {% endblock %}
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <div class="float_left logo_div">
+            <img
+              alt="YuYuang"
+              class="logo"
+              height="40"
+              width="40"
+              src=" {{url_for('static', filename='home/images/logo.png')}} "
+            />
+          </div>
+          <a class="navbar-brand" href=" {{url_for('home.index')}} ">裕源灵泰</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            {% block menu %}
+            <li><a href=" {{url_for('kanban.index')}} ">看板</a></li>
+            <li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'all')}} ">ORGATEX</a></li>
+            <li><a href=" {{url_for('kanban.PMKanBan')}} ">生管看板</a></li>
+            <li><a href="#">预排</a></li>
+            {% endblock %}
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search" />
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">配置</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="">
+        {% block main %}
+        {% endblock %}
+    </div>
+    {% block js %} {% endblock %}
+  </body>
+</html>

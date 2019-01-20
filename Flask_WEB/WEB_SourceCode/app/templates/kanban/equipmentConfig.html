@@ -1,0 +1,142 @@
+{% extends 'kanban/base.html' %}
+
+{% block title %}机台设置{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href=" {{url_for('static', filename = 'kanban/css/equipmentConfig.css')}} ">
+{% endblock %}
+
+{% block menu %}
+<li><a href=" # ">工厂平面图</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+    <div class="row">
+        <div class="tab-content">
+            <div class="col-md-3">
+                <div class="box box-solid">
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            {% for i in equipmentWPList %}
+                            <li><button class="WP-btn" id="{{i.id}}" onclick="clickEqBtn('{{i.id}}')">{{i.sWorkingProcedureName}}</button></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">机台号</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <form action="" method="POST">
+                            <div class="mailbox-controls">
+                                <button type="button" class="btn btn-default btn-sm" id="btn_edit" onclick="clickEditBtn()">编辑</button>
+                                <button type="button" class="btn btn-default btn-sm" id="btn_Save" onclick="returnEqBtn()">取消</button>
+                                <button type="button" class="btn btn-default btn-sm" id="btn_Save" onclick="saveEqBtn()">保存</button>
+                            </div>
+                            <div class="table-responsive mailbox-messages" id="Equiment_Data">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/jQuery-2.2.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/app.min.js')}}"></script>
+
+
+<script>
+    // AJAX 读取工段机台信息
+    var clickEqBtn = function (id) {
+        var sWorkingProcedureName = document.getElementById(id).innerHTML
+        $('#Equiment_Data').load('/kanban/config/' + sWorkingProcedureName)
+    }
+
+    // 编辑按钮点击后AJAX调用可编辑的工段机台信息
+    var clickEditBtn = function () {
+        var sWorkingProcedureNameList = document.getElementsByName('sWorkingProcedureName')
+        var sWorkingProcedureName = ''
+        for (var i = 0; i < sWorkingProcedureNameList.length; i++) {
+            var sWorkingProcedureName = sWorkingProcedureNameList[i].innerHTML
+            break
+        }
+        // console.log(sWorkingProcedureName)
+        $('#Equiment_Data').load('/kanban/config/edit/' + sWorkingProcedureName)
+    }
+
+    // 取消按钮事件 返回无法编辑的状态
+    var returnEqBtn = function () {
+        var sWorkingProcedureNameList = document.getElementsByName('sWorkingProcedureName')
+        var sWorkingProcedureName = ''
+        for (var i = 0; i < sWorkingProcedureNameList.length; i++) {
+            var sWorkingProcedureName = sWorkingProcedureNameList[i].innerHTML
+            break
+        }
+        $('#Equiment_Data').load('/kanban/config/' + sWorkingProcedureName)
+    }
+
+    // 保存按钮事件
+    var saveEqBtn = function () {
+        var sWorkingProcedureNameList = document.getElementsByName('sWorkingProcedureName')
+        var sEquipmentNoList = document.getElementsByName('sEquipmentNo')
+        var sEquipmentNameList = document.getElementsByName('sEquipmentName')
+        var bUsableList = document.getElementsByName('bUsable')
+        var nRowNumberList = document.getElementsByName('nRowNumber')
+        var array = []
+        for (var i = 0; i < sWorkingProcedureNameList.length; i++) {
+            console.log(sWorkingProcedureNameList[i].innerHTML)
+            dict = {
+                'sWorkingProcedureName': sWorkingProcedureNameList[i].innerHTML,
+                'sEquipmentNo': '',
+                'bUsable': '',
+                'nRowNumber': ''
+            }
+            array.push(dict)
+        }
+        for (var i = 0; i < sEquipmentNoList.length; i++) {
+            array[i]['sEquipmentNo'] = sEquipmentNoList[i].innerHTML
+        }
+        for (var i = 0; i < bUsableList.length; i++) {
+            array[i]['bUsable'] = bUsableList[i].value
+        }
+        for (var i = 0; i < nRowNumberList.length; i++) {
+            array[i]['nRowNumber'] = nRowNumberList[i].value
+        }
+        //转换为JSON数据格式
+        var data_json = JSON.stringify(array)
+        // console.log(data_json)
+        //POST返回
+        $.ajax({
+            url: "/kanban/save/config",
+            type: "POST",
+            contentType: "json",
+            data: data_json,
+            dataType: "text",
+            success: function (result) {
+                console.log(result)
+            },
+            error: function (msg) {
+                $(".notice").html('Error:' + msg);
+            }
+        })
+        // console.log('121212')
+        returnEqBtn()
+    };
+
+</script>
+
+{% endblock %}

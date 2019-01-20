@@ -1,0 +1,167 @@
+{% extends 'kanban/base.html' %}
+
+{% block title %}orgatex{% endblock %}
+
+{% block menu %}
+<li><a href=" {{url_for('kanban.index')}} ">ORGATEX</a></li>
+<li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'A0')}} ">A</a></li>
+<li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'B0')}} ">B</a></li>
+<li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'C0')}} ">C</a></li>
+<li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'D0')}} ">D</a></li>
+<li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'E0')}} ">E</a></li>
+<li><a href="#">预排</a></li>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/AdminLTE.css')}} ">
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/AdminLTE.min.css')}} ">
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/bootstrap.min.css')}} ">
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/bootstrap_var.css')}} ">
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/workProcedure.css')}} ">
+
+<script type="text/javascript">
+    function toblack() {
+        var box = document.getElementsByName('box_body');
+        for (i = 0; i <= box.length; i++) {
+            console.log(box[i].classList.contains('direct-chat-contacts-open'));
+            if (box[i].classList.contains('direct-chat-contacts-open')){
+                box[i].classList.remove('direct-chat-contacts-open');
+            }
+            else{
+                box[i].classList.add('direct-chat-contacts-open');
+            }
+        }
+    }
+
+    function toelseurl(Eq) {
+        var thisUrl = window.location.href;
+        var thisEq = thisUrl.split('/')[5];
+        if(thisEq == 'A0'){
+            window.location.href='B0';
+        }else if(thisEq == 'B0'){
+            window.location.href='C0';
+        }else if(thisEq == 'C0'){
+            window.location.href='D0';
+        }else if(thisEq == 'D0'){
+            window.location.href='E0';
+        }else if(thisEq == 'E0'){
+            window.location.href='A0';
+        }
+    }
+
+    window.onload = function () {
+        window.setInterval("toblack()", 10000);
+        
+        setTimeout("toelseurl()",30000)
+        // window.setInterval("toelseurl('C0)", 150000);
+        // window.setInterval("toelseurl('D0)", 200000);
+        // window.setInterval("toelseurl('E0)", 250000);
+        
+    }
+</script>
+
+
+{% endblock %}
+
+
+{% block main %}
+<section class="content">
+    <div class="row">
+        {% for var_Equipment in KanBan_Equipment_var %}
+        <div class="col-md-6" style="margin-top: 22px;">
+            <div class="box box-warning direct-chat direct-chat-warning" name="box_body">
+                <div class="box-header with-border">
+                    <h3 class="box-title text_center" style="font-size:20px;"> <b>{{var_Equipment.sEquipmentNo}}</b>
+                    </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-toggle=" " data-widget="chat-pane-toggle">
+                            <i class="fa glyphicon glyphicon-cloud"></i></button>
+                        <button type="button" class="btn btn-box-tool">
+                            <i class="glyphicon glyphicon-repeat"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="direct-chat-messages">
+                        {% for var_Card in KanBan_Card_var_1 %}
+                        {% if var_Card.sEquipmentNo == var_Equipment.sEquipmentNo %}
+                        <div class="border_bottom ">
+                            {% if var_Card.sCardNo != None %}
+                            <div style="width:460px;" class=" float_left text_center">
+                                <span class="text_center;" style="font-size:50px; line-height:130px;">
+                                    
+                                    {{var_Card.sCardNo}}
+                                    
+                                </span>
+                                <span style="font-size:42px;" class="text_center">{{var_Card.tPlanEndTime}}</span><br>
+                            </div>
+                            <div style="width:370px; margin-left:50px;" class=" float_left border_top">
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sColorNo}}</span><br>
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sMaterialNo}}</span><br>
+                                <span style="font-size:32px;" class="text_center">{{var_Card.nFactInputQty}}</span><br>
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sNowStatus}}</span><br>
+                            </div>
+                            <div style="width:580px; margin-left: 23px;" class=" float_left border_top">
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sCustomerName}}</span>
+                            </div>
+                            {% else %}
+                            <div style="width:330px; " class=" float_left text_center">
+                                <span class="text_center;" style="font-size:52px; line-height:160px;">
+                                    空缸
+                                </span>
+                            </div>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="direct-chat-contacts">
+                        {% for var_Card in KanBan_Card_var_2 %}
+                        {% if var_Card.sEquipmentNo == var_Equipment.sEquipmentNo %}
+                        <div class="border_bottom">
+                        {% if var_Card.sCardNoNext1 != None %}
+                            <div style="width:450px; " class="float_left text_center">
+                                <span class="text_center;" style="font-size:42px; line-height:80px;">{{var_Card.sCardNoNext1}}</span>
+                                <span style="font-size:32px;">{{var_Card.sColorNoNext1}}</span><br>
+                                <span style="font-size:32px;">{{var_Card.sMaterialNoNext1}}</span><br>
+                                <span style="font-size:32px;">{{var_Card.nFactInputQtyNext1}}</span><br>
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sWorkingProcedureNameNext1}}</span>
+                            </div>
+                        {% else %}
+                            <div style="width:450px; " class="float_left text_center">
+                                <span class="text_center;" style="font-size:42px; line-height:240px;">未排单</span>
+                            </div>
+                        {% endif %}
+                        {% if var_Card.sCardNoNext2 != None %}
+                            <div style="width:450px;" class="float_left border_top">
+                                <span class="text_center;" style="font-size:42px; line-height:80px;">{{var_Card.sCardNoNext2}}</span>
+                                <span style="font-size:32px;">{{var_Card.sColorNoNext2}}</span><br>
+                                <span style="font-size:32px;">{{var_Card.sMaterialNoNext2}}</span><br>
+                                <span style="font-size:32px;">{{var_Card.nFactInputQtyNext2}}</span><br>
+                                <span style="font-size:32px;" class="text_center">{{var_Card.sWorkingProcedureNameNext2}}</span>
+                            </div>
+                        {% else %}
+                            <div style="width:450px; " class="float_left text_center">
+                                <span class="text_center;" style="font-size:42px; line-height:240px;">未排单</span>
+                            </div>
+                        {% endif %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/jQuery-2.2.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/app.min.js')}}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,468 @@
+{% extends 'kanban/base.html' %}
+
+{% block title %}工厂平面图{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/FactoryFloorPlan.css')}} ">
+
+{% endblock %}
+
+
+{% block menu %}
+<li><a href=" # ">机台设置</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+{% endblock %}
+
+{% block main %}
+
+<div class="box">
+    <!-- 上部区域 -->
+    <div class="TJ-Dye-AE-div">
+        <div class="TJ-box float-left border-right border-bottom">
+            <div class="TJ-mac border-right float-left">
+                <ul>
+                    {% for i in TJ_eq %}
+                    <li>
+                        <div class="mac-div text-center border-bottom" style="background: {{i['sStatusColor']}}">
+                            <span>退卷{{i['sEquipmentNo']}}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% for i in MM_eq %}
+            <div class="MM-div float-right border-bottom text-center" style="background: {{i['sStatusColor']}}">
+                <span>磨毛{{i['sEquipmentNo']}}</span>
+            </div>
+            {% endfor %}
+            {% for i in WIPPre %}
+            {% if i['sWorkingProcedureName'] == '退卷' %}
+            <div class="TJ-Area float-left {{i['class_out']}} progress-bar-striped">
+                <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre2']}} ;">
+                    <span class="tag-pre-TJ"> 待退卷{{i['sPre']}},{{i['sPreMath']}} </span>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="TJ-Dye-Road border-right float-left road">
+            <div class="road-mark-stand text-center">
+                <span><b>↓</b></span>
+                <span><b>↑</b></span>
+            </div>
+        </div>
+        <div class="Dye-AE-div float-left border-bottom">
+            <div class="Dye-E-div float-left">
+                <div class="Dye-E-empty border-bottom"></div>
+                <div>
+                    <ul>
+                        {% for i in Dye_eq1 %}
+                        <li>
+                            <div class="float-left Dye-E1-mac border-right border-bottom text-center" style="background: {{i['sStatusColor']}}">
+                                <span>染色{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        {% for i in Dye_eq2 %}
+                        <li>
+                            <div class="float-left Dye-E2-mac border-right border-bottom text-center " style="background: {{i['sStatusColor']}}">
+                                <span>染色{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="Dye-A-Road float-left road">
+                <div class="road-mark-dye text-center">
+                    <span><b>↓</b></span>
+                    <span><b>↑</b></span>
+                </div>
+            </div>
+            <div class="Dye-A-empty"></div>
+            <div>
+                <div class="Dye-A-div float-left border-top">
+                    {% for i in Dye_eq3 %}
+                    <div class="Dye-A-mac float-left text-center border-right" style="background: {{i['sStatusColor']}}">
+                        <span>染色{{i['sEquipmentNo']}}</span>
+                    </div>
+                    {% endfor %}
+                    <div class="Dye-AB-Road float-left road">
+                        <div class="road-mark-dye text-center">
+                            <span><b>↓</b></span>
+                            <span><b>↑</b></span>
+                        </div>
+                    </div>
+                    {% for i in Dye_eq4 %}
+                    <div class="Dye-A-mac float-left text-center border-right" style="background: {{i['sStatusColor']}}">
+                        <span>染色{{i['sEquipmentNo']}}</span>
+                    </div>
+                    {% endfor %}
+                    <div class="Dye-AEnd-Road float-left road">
+                        <div class="road-mark-dye text-center">
+                            <span><b>↓</b></span>
+                            <span><b>↑</b></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 上中道路 -->
+    <div class="road TJ-Dye-Road-2">
+        <div class="road-mark-cross text-center">
+            <div class="float-left">
+                <span><b>←</b></span>
+            </div><br>
+            <div class="float-left">
+                <span><b>→</b></span>
+            </div>
+        </div>
+    </div>
+    <!-- 中部区域 -->
+    <div class="middle-div border-bottom">
+        <div class="float-left ST-mid-div border-right">
+            <div class="ST-mid border-right float-left">
+                <div class="FP-ST-div border-bottom text-center">
+                    {% for i in WIPPre %}
+                    {% if i['sWorkingProcedureName'] == '配检布' %}
+                    <div class="PJ-WIP-div {{i['class_out']}} progress-bar-striped border-bottom">
+                        <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                            <span class="tag-pre-PJ"> 待配检布{{i['sPre2']}},{{i['sPreMath']}} </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% for i in WIPPre %}
+                    {% if i['sWorkingProcedureName'] == '胚仓' %}
+                    <div class="FP-WIP-div {{i['class_out']}} progress-bar-striped">
+                        <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                            <span class="tag-pre-FP"> 胚仓{{i['sPre2']}},{{i['sPreMath']}}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% for i in WIPPre %}
+                {% if i['sWorkingProcedureName'] == '成品仓A_B' %}
+                <div class="ST-div text-center {{i['class_out']}} progress-bar-striped">
+                    <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                        <span class="tag-pre-STAB"> 成品仓AB{{i['sPre2']}},{{i['sPreMath']}}</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="road float-left">
+                <div class="FP-DC-div">
+                    <div class="road-mark-FP text-center">
+                        <span><b>↓</b></span>
+                        <span><b>↑</b></span>
+                    </div>
+                </div>
+            </div>
+            <div class="DC-room-div float-left text-center">
+                <div class="DC-div border-bottom">
+                    <a href=""><span>化学品仓库</span></a>
+                </div>
+                <div class="stRoom-div">
+                    <a href=""><span>仓库办公室</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="road DC-Dye-road float-left">
+            <div class="road float-left">
+                <div class="FP-DC-div">
+                    <div class="road-mark-FP text-center">
+                        <span><b>↓</b></span>
+                        <span><b>↑</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="float-left mid-mac-div border-bottom ">
+            <div class="mid-top-div">
+                <div class="mid-left-div float-left">
+                    <div class="dye-CD-div border-bottom border-right">
+                        <div>
+                            <ul>
+                                {% for i in Dye_eq5 %}
+                                <li>
+                                    <div class="float-left div-C-mac text-center border-left" style="background: {{i['sStatusColor']}}">
+                                        <span>染色{{i['sEquipmentNo']}}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div>
+                            <ul>
+                                {% for i in Dye_eq6 %}
+                                <li>
+                                    <div class="float-left div-D-mac text-center border-top border-left" style="background: {{i['sStatusColor']}}">
+                                        <span>染色{{i['sEquipmentNo']}}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="road Dye-ZB-road">
+                        <div class="float-left">
+                            <span><b>←</b></span>
+                        </div><br>
+                        <div class="float-left">
+                            <span><b>→</b></span>
+                        </div>
+                    </div>
+                    <div class="ZB-DB-div border-bottom border-left border-right">
+                        <div class="ZB-TOP-div border-bottom">
+                            <div class="DB-div border-right float-left text-center">
+                                {% for i in PB_eq %}
+                                <div class="PB-mac border-bottom" style="background: {{i['sStatusColor']}}">
+                                    <span>剖布{{i['sEquipmentNo']}}</span>
+                                </div>
+                                {% endfor %}
+                                {%for i in DB_eq%}
+                                <div class="DB-mac" style="background: {{i['sStatusColor']}}">
+                                    <span>
+                                        {{i['sEquipmentNo']}}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="ZB-div border-right float-left text-center">
+                                <ul>
+                                    {% for i in TS_eq %}
+                                    <li class="ZB-mac border-bottom" style="background: {{i['sStatusColor']}}">
+                                        <span>脱水{{i['sEquipmentNo']}}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="dye-abnormal float-left text-center">
+                                <span>染色异常品放置区</span>
+                            </div>
+                        </div>
+                        <div class="CD-Dye-WIP-div">
+                            {% for i in WIPPre %}
+                            {% if i['sWorkingProcedureName'] == '染色' %}
+                            <div class="Dye-WIP border-right float-left text-center {{i['class_out']}} progress-bar-striped">
+                                <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar"
+                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                                    <span class="tag-pre-Dye">待染{{i['sPre2']}},{{i['sPreMath']}}</span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% for i in WIPPre %}
+                            {% if i['sWorkingProcedureName'] == '预定' %}
+                            <div class="CD-WIP float-left text-center {{i['class_out']}} progress-bar-striped">
+                                <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar"
+                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                                    <span class="tag-pre-YD"> 待预定{{i['sPre2']}},{{i['sPreMath']}}</span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="float-left road Dye-SX-div">
+                    <div class="road-mark-sx text-center">
+                        <span><b>↓</b></span>
+                        <span><b>↑</b></span>
+                    </div>
+                </div>
+                <div class="SX-FB-div float-left border-bottom">
+                    <div class="FB-div border-bottom">
+                        {% for i in FB_eq %}
+                        <div class="float-left FB-mac border-left border-right text-center" style="background: {{i['sStatusColor']}}">
+                            <span>
+                                翻布{{i['sEquipmentNo']}}
+                            </span>
+                        </div>
+                        {% endfor %}
+                        <div class="float-left FB-empty"></div>
+                    </div>
+                    <div class="SX-div">
+                        {% for i in WIPPre %}
+                        {% if i['sWorkingProcedureName'] == '水洗' %}
+                        <div class="SX-WIP-div float-left text-center border-left {{i['class_out']}} progress-bar-striped">
+                            <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre2']}} ;">
+                                <span class="tag-pre-SX">待水洗{{i['sPre']}},{{i['sPreMath']}}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div>
+                            <ul>
+                                {% for i in SX_eq %}
+                                <li>
+                                    <div class="float-left SX-mac border-left text-center" style="background: {{i['sStatusColor']}}">
+                                        <span>水洗{{i['sEquipmentNo']}}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="SX-DX-road road">
+                <div class="float-left">
+                    <span><b>←</b></span>
+                </div><br>
+                <div class="float-left">
+                    <span><b>→</b></span>
+                </div>
+            </div>
+            <div class="YBWIP-DX-div border_right">
+                <div class="YB-WIP-div border-right float-left">
+                    {% for i in WIPPre %}
+                    {% if i['sWorkingProcedureName'] == '验布' %}
+                    <div class="YB-WIP border-bottom text-center">
+                        <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                            <span class="tag-pre-YB">待验布{{i['sPre2']}},{{i['sPreMath']}}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="YB-abnormal text-center">
+                        <span>验布异常</span>
+                    </div>
+                </div>
+                <div class="road YB-DX-road float-left">
+                    <div class="road-mark-stand text-center">
+                        <span><b>↓</b></span>
+                        <span><b>↑</b></span>
+                    </div>
+                </div>
+                <div class="DX-div float-left border-right border-left">
+                    {% for i in WIPPre %}
+                    {% if i['sWorkingProcedureName'] == '成定' %}
+                    <div class="YB-WIP2 float-left text-center border-top {{i['class_out']}} progress-bar-striped">
+                        <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                            <span class="tag-pre-CD">待成定{{i['sPre2']}},{{i['sPreMath']}} </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <ul>
+                        {% for i in DX_eq1 %}
+                        <li>
+                            <div class="DX-mac float-left text-center border-top border-left" style="background: {{i['sStatusColor']}}">
+                                <span>定型{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="road YB-DX-road float-left">
+                        <div class="road-mark-stand text-center">
+                            <span><b>↓</b></span>
+                            <span><b>↑</b></span>
+                        </div>
+                    </div>
+                    <ul>
+                        {% for i in DX_eq2 %}
+                        <li>
+                            <div class="DX-ma2 float-right text-center" style="background: {{i['sStatusColor']}}">
+                                <span>定型{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% for i in DX_eq3 %}
+                        <li>
+                            <div class="DX-mac float-right border-right text-center" style="background: {{i['sStatusColor']}}">
+                                <span>定型{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="road DX-PG-road border-right">
+        <div class="float-left">
+            <span><b>←</b></span>
+        </div><br>
+        <div class="float-left">
+            <span><b>→</b></span>
+        </div>
+    </div>
+    <div class="bottom-div bottom-div">
+        {% for i in WIPPre %}
+        {% if i['sWorkingProcedureName'] == '成品仓C_C1' %}
+        <div class="ST-div2 border-right text-center float-left {{i['class_out']}} progress-bar-striped">
+            <div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                <span class="tag-pre-STCC1"> 成品仓C{{i['sPre2']}},{{i['sPreMath']}} </span>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="road ST-PG-div float-left">
+            <div class="road-mark-ST text-center">
+                <span><b>↓</b></span>
+                <span><b>↑</b></span>
+            </div>
+        </div>
+        <div class="PG-DJ-div float-left border-right">
+            <div class="float-left DJ-div">
+                <div class="float-left ">
+                    <ul>
+                        {% for i in DJ_eq %}
+                        <div class="DJ-mac border-top text-center" style="background: {{i['sStatusColor']}}">
+                            <li>打卷{{i['sEquipmentNo']}}</li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="road DJ-PG-road float-left">
+                    <div class="road-mark-ST text-center">
+                        <span><b>↓</b></span>
+                        <span><b>↑</b></span>
+                    </div>
+                </div>
+                {% for i in WIPPre %}
+                {% if i['sWorkingProcedureName'] == '包装' %}
+                <div class="float-left DG-WIP border-left text-center {{i['class_out']}} progress-bar-striped">
+                    	<div class="progress-bar {{i['class_in']}} progress-bar-striped" role="progressbar" aria-valuenow="80"
+                            aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPre']}} ;">
+                            <span class="tag-pre-DG">待包装{{i['sPre2']}},{{i['sPreMath']}}</span>
+                        </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="float-left PG-div">
+                <ul>
+                    {% for i in YB_eq %}
+                    <div class="PG-mac float-left border-left text-center" style="background: {{i['sStatusColor']}}">
+                        <li>
+                            <div>
+                                <span>验布{{i['sEquipmentNo']}}</span>
+                            </div>
+                        </li>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

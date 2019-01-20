@@ -1,0 +1,11 @@
+.WP-btn{
+    background: transparent;
+    border: none;
+    width: 250px;
+    height: 40px;
+}
+input{
+    border: 0px;
+    background: #FAEBD7;
+    text-align: center;
+}

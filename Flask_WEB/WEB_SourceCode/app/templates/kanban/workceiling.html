@@ -1,0 +1,109 @@
+<!-- 工段WIP上线设置 -->
+{% extends 'kanban/base.html' %}
+
+{% block title %}WIP上限设置{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/AdminLTE.css')}} ">
+<link rel="stylesheet" href=" {{url_for('static',filename='kanban/css/AdminLTE.min.css')}} ">
+{% endblock %}
+
+{% block menu %}
+<li><a href=" # ">机台设置</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+<li><a href=" # ">new</a></li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+    <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+            </div>
+            <div class="box-body no-padding">
+                <div class="table-responsive mailbox-messages">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            {% for var in WIPSearchVar %}
+                            <tr>
+                                <td>{{var.sWorkingProcedureName}}</a></td>
+                                <td class="mailbox-subject" id="td{{var.id}}" ondblclick="checkToInput(this)" onblur="loseCursor('td{{var.id}}')">{{var.sCeiling}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/jQuery-2.2.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='kanban/js/app.min.js')}}"></script>
+<script>
+    function checkToInput(element) {
+        var oldhtml = element.innerHTML
+        if (oldhtml.indexOf("type='text'") > 0) {
+            return;
+        }
+        var newobj = document.createElement('input')
+        newobj.type = 'text'
+        newobj.value = oldhtml
+        newobj.onblur = function () {
+            if (this.value && this.value.trim() !== "") {
+                element.innerHTML = this.value == oldhtml ? oldhtml : this.value;
+            } else {
+                element.innerHTML = oldhtml;
+            }
+            var html = element.parentNode.childNodes
+            var array = []
+            var a = 0
+            for (var i = 0; i < html.length; i++) {
+                if (typeof (html[i].innerHTML) != 'undefined') {
+                    a += 1
+                    if (a == 1) {
+                        dict = {
+                            'sWorkingProcedureName': html[i].innerHTML,
+                            'sCeiling': ''
+                        }
+                    } else {
+                        dict['sCeiling'] = html[i].innerHTML
+                        array.push(dict)
+                    }
+                }
+            }
+
+            var data_json = JSON.stringify(array)
+            console.log(data_json)
+            $.ajax({
+                url: "/kanban/WIPconfig",
+                type: "POST",
+                contentType: "json",
+                data: data_json,
+                dataType: "text",
+                success: function (result) {
+                    console.log(result)
+                },
+                error: function (msg) {
+                    $(".notice").html('Error:' + msg);
+                }
+            })
+        }
+        element.innerHTML = '';
+        //添加该标签的子节点，input对象
+        element.appendChild(newobj);
+        //设置选择文本的内容或设置光标位置（两个参数：start,end；start为开始位置，end为结束位置；如果开始位置和结束位置相同则就是光标位置）
+        newobj.setSelectionRange(0, oldhtml.length);
+        //设置获得光标
+        newobj.focus();
+    }
+</script>
+
+
+{% endblock %}

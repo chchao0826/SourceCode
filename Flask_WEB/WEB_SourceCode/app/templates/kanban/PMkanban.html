@@ -1,0 +1,184 @@
+{% extends 'kanban/base.html' %}
+
+{% block title %}生管{% endblock %}
+
+{% block css %}
+<style>
+    li {
+        list-style: none;
+    }
+
+    body,
+    ul,
+    .box-body {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .div-box {
+        width: 4000px;
+        height: 2100px;
+        border: 1px solid #ccc;
+    }
+
+    .box-title {
+        height: 60px;
+        border: 1px solid blue;
+    }
+
+    .box-title>ul>li,
+    .mic-li,
+    .mic-li2,
+    .number-div {
+        text-align: center;
+    }
+
+    .box-title>ul>li {
+        display: inline-block;
+        width: 920px;
+        font-size: 40px;
+        line-height: 60px;
+        border-left: 1px solid #ccc;
+    }
+
+    .mic-li {
+        display: inline-block;
+        width: 104px !important;
+        font-size: 40px;
+        border-left: 1px solid #ccc;
+    }
+
+    .mic-li2 {
+        float: left;
+        height: 233px;
+        line-height: 233px;
+        border: 1px solid #eee;
+        width: 110px;
+        font-size: 40px;
+    }
+
+    .card-box-div {
+        float: left;
+        width: 925px;
+        height: 233px;
+        border: 1px solid #eee;
+        overflow-y: auto;
+    }
+
+    .number-div {
+        float: left;
+        width: 876px;
+        height: 45px;
+        font-size: 36px;
+        border: 1px solid #eee;
+    }
+
+    .card-div {
+        float: left;
+        width: 292px;
+        height: 45px;
+        font-size: 36px;
+        border: 1px solid #eee;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="div-box">
+    <div class="box-title">
+        <ul>
+            <li class="mic-li">工段</li>
+            <li>染色</li>
+            <li>化验室</li>
+            <li>水洗预定</li>
+            <li>配检退卷</li>
+        </ul>
+    </div>
+    <div class="box-title">
+        <ul>
+            <li class="mic-li">合计</li>
+
+            <li> {{PM_Dye_Number}} </li>
+            <li> {{PM_HY_Number}} </li>
+            <li> {{PM_ZL_Number}} </li>
+            <li> {{PM_TJ_Number}} </li>
+        </ul>
+    </div>
+    {% for var_eq in PMEquipment_var %}
+    <div class="box-body">
+        <div class="mic-div">
+            <span class="mic-li2"><a href="#">{{var_eq.sEquipmentNo}}</a></span>
+        </div>
+        <!-- 染色 -->
+        <div class="card-box-div">
+            {% for var_count in cardCount_var %}
+            {% if var_count.sWorkingProcedureName == '染色' and var_count.sEquipmentNo == var_eq.sEquipmentNo %}
+            <div class="number-div">
+                <span class="card-li"> {{var_count.nCount}} </span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for var_card in PMkanban_Dye %}
+            {% if var_eq.sEquipmentNo == var_card.sEquipmentNo %}
+            <div class="card-div">
+                <span class="card-li">{{var_card.sCardNo}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <!-- 化验室 -->
+        <div class="card-box-div">
+            {% for var_count in cardCount_var %}
+            {% if var_count.sWorkingProcedureName == '化验室' and var_count.sEquipmentNo == var_eq.sEquipmentNo %}
+            <div class="number-div">
+                <span class="card-li"> {{var_count.nCount}} </span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for var_card in PMkanban_HY %}
+            {% if var_eq.sEquipmentNo == var_card.sEquipmentNo %}
+            <div class="card-div">
+                <span class="card-li">{{var_card.sCardNo}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <!-- 水洗预定 -->
+        <div class="card-box-div">
+            {% for var_count in cardCount_var %}
+            {% if var_count.sWorkingProcedureName == '水洗预定' and var_count.sEquipmentNo == var_eq.sEquipmentNo %}
+            <div class="number-div">
+                <span class="card-li"> {{var_count.nCount}} </span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for var_card in PMkanban_ZL %}
+            {% if var_eq.sEquipmentNo == var_card.sEquipmentNo %}
+            <div class="card-div">
+                <span class="card-li">{{var_card.sCardNo}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <!-- 退卷 -->
+        <div class="card-box-div">
+            {% for var_count in cardCount_var %}
+            {% if var_count.sWorkingProcedureName == '退卷' and var_count.sEquipmentNo == var_eq.sEquipmentNo %}
+            <div class="number-div">
+                <span class="card-li"> {{var_count.nCount}} </span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for var_card in PMkanban_TJ %}
+            {% if var_eq.sEquipmentNo == var_card.sEquipmentNo %}
+            <div class="card-div">
+                <span class="card-li">{{var_card.sCardNo}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <div></div>
+</div>
+{% endblock %}

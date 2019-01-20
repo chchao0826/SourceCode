@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>裕源灵泰 - {% block title %}{% endblock %}预排</title>
+
+  <!-- css -->
+  <link rel="stylesheet" href=" {{url_for('static',filename='home/css/bootstrap.css')}} " />
+  <link rel="stylesheet" href=" {{url_for('static',filename='home/css/bootstrap.min.css')}} " />
+  <link rel="stylesheet" href=" {{url_for('static',filename='home/css/base.css')}} " />
+  <link rel="stylesheet" href=" {{url_for('static',filename='home/css/AdminLTE.css')}} " />
+
+  <style>
+    * {
+        font-family: "Microsoft YaHei";
+      }
+    </style>
+  {% block css %} {% endblock %}
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <div class="float_left logo_div">
+          <img alt="YuYuang" class="logo" height="40" width="40" src=" {{url_for('static', filename='home/images/logo.png')}} " />
+        </div>
+        <a class="navbar-brand" href=" {{url_for('home.index')}} ">裕源灵泰</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          {% block menu %}
+          <li><a href=" {{url_for('expect.dyeing', searchValue = 'all')}} ">染整预排</a></li>
+          <li><a href="#">染色预排</a></li>
+          <li><a href="#"></a></li>
+          {% endblock %}
+        </ul>
+        <div class="navbar-form navbar-left" name="form">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" id="search_input" />
+          </div>
+          <button class="btn btn-default" id="search" onclick=" forSubmit()" ">搜索</button>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">配置</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- <div class="content-wrapper"> -->
+  <div>
+    {% block main %} {% endblock %}
+  </div>
+  <!-- </div> -->
+  {% block js %} {% endblock %}
+  <script>
+    function forSubmit() {
+      var search = ''
+      var searchValue = document.getElementById('search_input')
+      if (searchValue.value == '') {
+        search = 'all'
+      } else {
+        search = searchValue.value
+      }
+      console.log(search)
+
+
+      javascript:window.location.href="/expect/dyeing/"+search
+
+    }
+  </script>
+</body>
+
+</html>
