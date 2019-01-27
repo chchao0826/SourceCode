@@ -1,0 +1,550 @@
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.float-left {
+    float: left;
+}
+
+.border {
+    border: 3px solid #aaa;
+}
+
+.border-left {
+    border-left: 3px solid #aaa;
+}
+
+.border-right {
+    border-right: 3px solid #aaa;
+}
+
+.border-top {
+    border-top: 3px solid #aaa;
+}
+
+.border-bottom {
+    border-bottom: 3px solid #aaa;
+}
+
+.main {
+    width: 1900px;
+    height: 960px;
+    margin: 8px;
+}
+
+.left-div {
+    width: 300px;
+    height: 963px;
+}
+
+.right-div {
+    width: 1597px;
+    height: 980px;
+}
+
+.TJ-div {
+    height: 162px;
+}
+
+.TJ-mac-div {
+    width: 100px;
+    height: 100%;
+}
+
+.TJ-mac {
+    height: 52px;
+}
+
+.mac-font {
+    line-height: 52px;
+    font-weight: 800;
+    font-size: 2em;
+}
+
+.mm-div {
+    width: 200px;
+    height: 162px;
+}
+
+.mm-div-top {
+    height: 52px;
+}
+
+.TJ-Store-road {
+    height: 42px;
+}
+
+.road {
+    background: green;
+}
+
+.road-font {
+    font-size: 2em;
+    font-weight: 800;
+    color: white;
+}
+
+.store-1-div {
+    height: 566px;
+}
+
+.store-2-div {
+    height: 148px;
+    line-height: 168px;
+}
+.store-2{
+    height: 148px;
+    line-height: 40px;
+}
+
+
+.store-FP-ST {
+    width: 150px;
+    height: 563px;
+}
+
+.FP-ST-HT-road {
+    height: 569px;
+    line-height: 566px;
+}
+
+.FP-font {
+    line-height: 260px;
+    font-size: 2em;
+    font-weight: 800;
+}
+
+.store-FP-div {
+    height: 266px;
+    line-height: 130px;
+}
+.store-FP{
+    height: 266px;
+    line-height: 80px;
+}
+.store-ST-div{
+    height: 295px;
+    line-height: 80px;
+}
+.store-ST{
+    height: 295px;
+    line-height: 90px;
+}
+
+.CH-store {
+    width: 110px;
+    height: 563px;
+    line-height: 563px;
+    font-size: 2em;
+    font-weight: 800;
+}
+
+/* 第二部分 */
+.dye-ABE-div {
+    height: 108px;
+}
+
+.dye-E-div {
+    width: 411px;
+    height: 104px;
+}
+
+.E-A-road {
+    width: 42.5px;
+    height: 108px;
+    line-height: 104px;
+}
+
+.dye-big-mac {
+    width: 134px;
+    height: 52px;
+    line-height: 52px;
+}
+
+.dye-nor-mac {
+    width: 99.7px;
+    height: 52px;
+}
+
+.A-div {
+    width: 651px;
+}
+
+.A-mac {
+    width: 90px;
+    height: 108px;
+    line-height: 108px;
+}
+
+.B-div {
+    width: 404px;
+}
+
+.B-mac {
+    width: 98px;
+    height: 108px;
+    line-height: 104px;
+}
+
+/* ABE-CD道路 */
+.ABE-CD-road {
+    height: 42px;
+    width: 100%;
+}
+
+.right-inner {
+    height: 404px;
+}
+
+.right-inner-left {
+    height: 404px;
+    width: 1000px;
+}
+
+.right-inner-inner {
+    height: 404px;
+    width: 42px;
+}
+
+.right-inner-right {
+    height: 404px;
+    width: 546px;
+}
+
+.dye-CD-div {
+    height: 109px;
+    width: 100%;
+}
+
+.TS-div {
+    height: 262px;
+}
+
+.dye-C-div {
+    height: 52px;
+}
+
+.dye-C-mac {
+    width: 197px;
+    height: 52px;
+}
+
+.dye-D-mac {
+    width: 247px;
+    height: 52px;
+}
+.default-div{
+    background-color: #777;
+}
+.E-TS-road {
+    width: 1000px;
+    height: 42px;
+}
+
+.TS-div {
+    width: 1000px;
+    height: 156px;
+}
+
+.TS-left,
+.TS-inner,
+.TS-right {
+    width: 330px;
+    height: 155px;
+    line-height: 155px;
+}
+
+.PB-mac,
+.DB-mac {
+    width: 330px;
+    height: 75px;
+    line-height: 76.5px;
+}
+
+.TS-mac {
+    width: 330px;
+    height: 49px !important;
+}
+
+.dye-WIP-div,
+.YD-WIP-div {
+    width: 497px;
+    height: 100px;
+}
+.YD-WIP{
+    width: 497px;
+    height: 100px;
+    line-height: 50px;
+}
+
+.dye-WIP{
+    width: 497px;
+    height: 100px;
+    line-height: 50px;
+}
+
+.SX-WIP-div {
+    width: 497px;
+    height: 100px;
+    line-height: 100px;
+}
+
+.right-inner-right-top {
+    height: 202px;
+}
+
+.FB-mac {
+    width: 179px;
+    height: 202px;
+    line-height: 202px;
+}
+
+.blank-div {
+    width: 363px;
+    height: 200px;
+    /* background-color: green; */
+    line-height: 200px;
+}
+
+.SX-WIP-div,
+.SX-mac{
+    width: 179px;
+    height: 202px;
+    line-height: 200px;
+}
+
+.TS-DX-road {
+    width: 100%;
+    height: 42px;
+}
+
+.DX-div {
+    width: 1597px;
+    height: 104px;
+}
+
+.YB-WIP-div {
+    width: 214px;
+    height: 104px;
+}
+
+.YB-WIP {
+    width: 214px;
+    height: 52px;
+    line-height: 52px;
+}
+
+.YB-abn {
+    width: 214px;
+    height: 52px;
+    line-height: 52px;
+}
+
+.YBWIP-CDmac-road,
+.CDmac-CDmac-road {
+    width: 42px;
+    height: 104px;
+    line-height: 104px;
+}
+
+.CD-WIP,
+.CD-mac {
+    width: 212px;
+    height: 104px;
+    line-height: 104px;
+}
+
+.DX-PG-road {
+    width: 1600px;
+    height: 42px;
+}
+
+.AB-C-ST {
+    width: 300px;
+    height: 42px;
+}
+
+.PG-div {
+    width: 1600px;
+    height: 208px;
+}
+
+.DJ-div {
+    width: 420px;
+    height: 208px;
+}
+
+.DJ-div2 {
+    width: 200px;
+    height: 208px;
+}
+
+.DJ-mac {
+    width: 200px;
+    height: 50px;
+}
+
+.DJ-WIP {
+    width: 217px;
+    height: 208px;
+    line-height: 208px;
+}
+
+.DJ-WIP-font{
+    width: 217px;
+    height: 208px;
+    padding-top: 40px;
+    line-height: 70px;
+}
+
+.DJ-YB-road {
+    width: 42px;
+    height: 208px;
+    line-height: 208px;
+}
+
+.YB-mac {
+    width: 200px;
+    height: 208px;
+    line-height: 208px;
+}
+
+.TJ-WIP-div{
+    width:200px;
+    height: 108px;
+    line-height: 108px;
+}
+.tag-pre-TJ{
+    font-size: 3em;
+    font-weight: 800;
+    color: #111;
+}
+.TJ-WIP{
+    line-height: 48px !important;
+    height: 200px !important;
+    width: 200px;
+}
+
+.SX-WIP{
+    width: 163.6px;
+    height: 202px;
+    padding-top: 40px;
+    line-height: 40px;
+}
+.YB-WIP-font{
+    width: 214px;
+    height: 52px;
+    line-height: 28px;
+}
+.tag-pre-CD{
+    font-size: 2em;
+    font-weight: 700;
+    color: #111;
+}
+.CD-WIP-font{
+    width: 212px;
+    height: 104px;
+    line-height: 45px;
+}
+
+.PG-blank-div{
+    width: 320px;
+    height: 208px;
+}
+
+.mac-div{
+    height: 100px;
+}
+
+.remark-div{
+    width: 160px;
+    height: 46.5px;
+    line-height: 55px;
+}
+
+.remark-div-2{
+    width: 106px;
+    height: 56px;
+    line-height: 56px;
+}
+
+
+.tag-pre-remark{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+  }
+  .progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    -webkit-transition: width .6s ease;
+         -o-transition: width .6s ease;
+            transition: width .6s ease;
+  }
+  .progress-striped .progress-bar,
+  .progress-bar-striped {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+  }
+  .progress.active .progress-bar,
+  .progress-bar.active {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+         -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+  }
+  .progress-bar-success {
+    background-color: #5cb85c;
+  }
+  .progress-striped .progress-bar-success {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  }
+  .progress-bar-info {
+    background-color: #5bc0de;
+  }
+  .progress-striped .progress-bar-info {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  }
+  .progress-bar-warning {
+    background-color: #f0ad4e;
+  }
+  .progress-striped .progress-bar-warning {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  }
+  .progress-bar-danger {
+    background-color: #d9534f;
+  }
+  .progress-striped .progress-bar-danger {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  }

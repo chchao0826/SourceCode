@@ -1,66 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>KanBan - {% block title %}{% endblock %}</title>
 
-    <!-- css -->
-    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/bootstrap.css')}} "/>
-    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/base.css')}} "/>
-    <link rel="stylesheet" href=" {{url_for('static',filename='home/css/AdminLTE.css')}} "/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>看板 - 主页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0;
+        }
 
-<style>
-      * {
-        font-family: "Microsoft YaHei";
-      }
+        .float-left {
+            float: left;
+        }
+
+        .right-div,
+        .inner-div,
+        .left-div {
+            text-align: center;
+        }
+
+        .right-div {
+            width: 2%;
+        }
+
+        .inner-div {
+            width: 96%;
+            height: 94%;
+        }
+
+        .left-div {
+            width: 2%;
+        }
+
+        .inner2-div {
+            margin-top: 2%;
+            height: 94%;
+        }
+
+        .div-button {
+            width: 33.3%;
+            height: 33.8%;
+            /* line-height: 850%; */
+            border: 1px solid #ccc;
+        }
+        .title-style{
+            font-size: 40px;
+            font-weight: 400;
+        }
     </style>
-    {% block css %} {% endblock %}
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <div class="float_left logo_div">
-            <img
-              alt="YuYuang"
-              class="logo"
-              height="40"
-              width="40"
-              src=" {{url_for('static', filename='home/images/logo.png')}} "
-            />
-          </div>
-          <a class="navbar-brand" href=" {{url_for('home.index')}} ">裕源灵泰</a>
+<body>
+    <div id="main" >
+        <div class="float-left right-div">
+            <span class="glyphicon glyphicon-chevron-left"></span>
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            {% block menu %}
-            <li><a href=" {{url_for('kanban.index')}} ">看板</a></li>
-            <li><a href=" {{url_for('kanban.orgatex',equipmentNo = 'all')}} ">ORGATEX</a></li>
-            <li><a href=" {{url_for('kanban.PMKanBan')}} ">生管看板</a></li>
-            <li><a href="#">预排</a></li>
-            {% endblock %}
-          </ul>
-          <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search" />
+        <div class="float-left inner-div">
+            <div class="inner2-div">
+                <!-- 菜单界面 -->
+                {% for i in range(9) %}
+                <div class="float-left div-button" id="js-view-div{{i}}" onmousemove="mouseMove('js-view-div{{i}}')" onmouseout="mouseOut('js-view-div{{i}}')" >
+                    <div id="padding{{i}}" onclick="clickOn('padding{{i}}')">
+                        <span class="title-style">
+                            工厂平面图
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <button type="submit" class="btn btn-default">搜索</button>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">配置</a></li>
-          </ul>
         </div>
-      </div>
-    </nav>
-    <div class="">
-        {% block main %}
-        {% endblock %}
+        <div class="float-left left-div">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
     </div>
-    {% block js %} {% endblock %}
-  </body>
+</body>
+
+<script>
+    // 获得屏幕大小并将进行div的width/height赋值
+    var getScreen = function (id) {
+        var winWidth = 0;
+        var winHeight = 0;
+        //获取窗口宽度
+        if (window.innerWidth) {
+            winWidth = window.innerWidth;
+        } else if ((document.body) && (document.body.clientWidth)) {
+            winWidth = document.body.clientWidth;
+        }
+        //获取窗口高度
+        if (window.innerHeight) {
+            winHeight = window.innerHeight;
+        } else if ((document.body) && (document.body.clientHeight)) {
+            winHeight = document.body.clientHeight;
+        }
+        //通过深入Document内部对body进行检测，获取窗口大小
+        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+            winHeight = document.documentElement.clientHeight;
+            winWidth = document.documentElement.clientWidth;
+        }
+        // console.log(winHeight)
+        document.getElementById(id).style.width = winWidth + 'px';
+        document.getElementById(id).style.height = winHeight + 'px';
+        document.getElementById(id).style.lineHeight = winHeight + 'px';
+    }
+
+    // div中文字的居中
+    var line_height = function (id) {
+        var div_heigth = document.getElementById('js-view-div1').offsetHeight;
+        console.log(div_heigth)
+        document.getElementById(id).style.lineHeight = div_heigth + 'px';
+    }
+
+    // 经过div时的特效
+    var mouseMove = function(id) {
+        var getVar = document.getElementById(id);
+        getVar.style.backgroundColor = '#bbb';
+        getVar.style.color = '#111';
+    }
+    
+    // 离开div时的特效
+    var mouseOut = function(id) {
+        var getVar = document.getElementById(id);
+        getVar.style.backgroundColor = '#fff';
+        getVar.style.color = '#111';
+    }
+    
+    // 点击div时的特效
+    var clickOn = function(id){
+        // 获得点击的div的里面文字，进行超链接的赋值
+        // 获取第一个子节点的value
+        var divValue = document.getElementById(id).children[0].innerText;
+        window.location.href = divValue;
+    }
+
+    // 调整浏览器大小的时候运行函数
+    window.onresize = function () {
+        getScreen('main');
+        for(i = 0; i < 9; i++){
+            line_height('padding' + i);
+        }
+    }
+
+
+    // 初始化运行函数
+    var main = function() {
+        getScreen('main');
+        for(i = 0; i < 9; i++){
+            line_height('padding' + i);
+        }
+    }
+    main()
+    
+
+</script>
+
+
 </html>

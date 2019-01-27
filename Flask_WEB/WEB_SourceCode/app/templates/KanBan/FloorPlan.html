@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>看板 - 工厂平面图</title>
+    <!-- <link rel="stylesheet" href=" {{url_for('static',filename='KanBan/css/bootstrap.css')}} " /> -->
+
+    <link rel="stylesheet" href=" {{url_for('static',filename='KanBan/css/FloorPlan.css')}} " />
+
+</head>
+
+<body>
+    <!-- 主页面 -->
+    <div class="main border">
+        <!-- 左侧 -->
+        <div class="float-left left-div border-right">
+            <!-- 退卷区域 -->
+            <div class="TJ-div">
+                <div class="float-left TJ-mac-div">
+                    {% for i in TJ_eq %}
+                    <div class="TJ-mac text-center mac-font border-bottom border-right" style="background-color : {{i['sStatusColor']}}">
+                        <span>{{i['sEquipmentName']}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="float-left mm-div border-bottom">
+                    {% for i in MM_eq %}
+                    <div class="mm-div-top border-bottom text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                        <span>{{i['sEquipmentName']}}</span>
+                    </div>
+                    {% endfor %}
+
+                    {% for i in TJ_WIP %}
+                    <div class="TJ-WIP-div float-left {{i['sOutColor']}} progress-bar-striped">
+                        <div class="progress-bar {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                            <div class="TJ-WIP">
+                                <span class="tag-pre-TJ"> 待退卷{{i['sPerinner']}} </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--  -->
+            <!-- 退卷和仓库之前的道路 -->
+            <div class="TJ-Store-road road road-font text-center">
+                <span>→</span>
+            </div>
+            <!--  -->
+            <!-- 胚仓/C级成品仓 -->
+            <div class="store-1-div">
+                <!-- 左侧胚布仓库/C级仓库 -->
+                <div class="float-left store-FP-ST border-bottom border-top text-center FP-font ">
+                    {% for i in FP %}
+                    <div class="store-FP-div {{i['sOutColor']}} border-bottom progress-bar-striped">
+                        <div class="progress-bar store-FP-div {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                            <div class="store-FP">
+                                <span class="tag-pre-TJ"> 胚仓 </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sPerinner']}} </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for i in STC %}
+                    <div class="store-ST-div {{i['sOutColor']}} progress-bar-striped">
+                        <div class="progress-bar store-ST-div {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                            <div class="store-ST">
+                                <span class="tag-pre-TJ"> 成品C级 </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sPerinner']}} </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!--  -->
+                <!-- 布仓与化学品仓库道路 -->
+                <div class="float-left FP-ST-HT-road road text-center road-font">
+                    <span>↑</span>
+                    <span>↓</span>
+                </div>
+                <!--  -->
+                <!-- 化学品仓库 -->
+                <div class="float-left text-center default-div border-top CH-store border-bottom">
+                    <div style="line-height:100px;">
+                        <span>化</span> <br>
+                        <span>学</span> <br>
+                        <span>品</span> <br>
+                        <span>仓</span> <br>
+                        <span>库</span>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+            <div class="road AB-C-ST road-font text-center">
+                <span>→</span>
+            </div>
+            <!-- 底部A级库存 -->
+            {% for i in STC %}
+            <div class="store-2-div border-bottom {{i['sOutColor']}} mac-font text-center progress-bar-striped">
+                <div class="progress-bar store-2-div {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                    <div class="store-2">
+                        <span class="tag-pre-TJ"> 成品A级 </span> <br>
+                        <span class="tag-pre-TJ"> {{i['sPerinner']}} </span> <br>
+                        <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!--  -->
+        </div>
+        <!-- 右侧 -->
+        <div class="float-left right-div">
+            <!-- 上部分 染色E/A/B区 -->
+            <div class="dye-ABE-div">
+                <div class="float-left dye-E-div">
+                    <!-- E区染色机台 -->
+                    <div class="E-1-div">
+                        {% for i in Dye_eq1 %}
+                        <div class="float-left dye-big-mac border-right border-bottom text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                            <span>{{i['sEquipmentNo']}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- E区染色机台 -->
+                    <div class="E-2-div">
+                        {% for i in Dye_eq2 %}
+                        <div class="float-left dye-nor-mac text-center mac-font border-right border-bottom" style="background-color : {{i['sStatusColor']}}">
+                            <span>{{i['sEquipmentNo']}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="float-left road E-A-road text-center road-font">
+                    <span>↓</span>
+                </div>
+                <div class="float-left A-div border-bottom">
+                    {% for i in Dye_eq3 %}
+                    <div class="float-left A-mac border-right text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                        <span>{{i['sEquipmentNo']}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="float-left road text-center road-font E-A-road border-right">
+                    <span>↓</span>
+                </div>
+                <div class="float-left B-div border-bottom">
+                    {% for i in Dye_eq4 %}
+                    <div class="float-left B-mac border-right text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                        <span>{{i['sEquipmentNo']}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="float-left road E-A-road text-center road-font">
+                    <span>↓</span>
+                </div>
+            </div>
+            <!-- 染色A/E/B区与C/D区的道路 -->
+            <div class="ABE-CD-road road road-font text-center border-right">
+                <span style="padding-left: 120px" class="text-padding">→</span>
+            </div>
+            <!-- 中间第一部分染色C/D区,脱水,水洗区域 -->
+            <div class="right-inner border-bottom">
+                <div class="float-left right-inner-left border-right">
+                    <div class="dye-CD-div">
+                        <div class="dye-C-div border-bottom">
+                            {% for i in Dye_eq5 %}
+                            <div class="dye-C-mac float-left border-right text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                                <span>{{i['sEquipmentNo']}}</span>
+                            </div>
+                            {% endfor %}
+                            <div class="dye-C-mac float-left border-right text-center mac-font default-div">
+                            </div>
+                        </div>
+                        <div class="dye-D-div">
+                            {% for i in Dye_eq6 %}
+                            <div class="dye-D-mac float-left border-right text-center mac-font border-bottom" style="background-color : {{i['sStatusColor']}}">
+                                <span>{{i['sEquipmentNo']}}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="road road-font E-TS-road text-center">
+                        <span>→</span>
+                    </div>
+                    <div class="TS-div border-bottom">
+                        <div class="TS-div-top">
+                            <div class="float-left TS-left border-right">
+                                <div class="PB-mac border-top border-bottom text-center mac-font default-div">
+                                    <span>剖布机</span>
+                                </div>
+                                {% for i in DB_eq %}
+                                <div class="DB-mac text-center mac-font" style="background-color : {{i['sStatusColor']}}">
+                                    <span>{{i['sEquipmentName']}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="float-left TS-inner border-right">
+                                {% for i in TS_eq %}
+                                <div class="TS-mac border-top text-center mac-font" style="background-color : {{i['sStatusColor']}};">
+                                    <span>{{i['sEquipmentName']}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="float-left text-center TS-right border-right border-bottom default-div">
+                                <span class="tag-pre-TJ">染色异常品</span>
+                            </div>
+                        </div>
+                        <div class="TS-div-bottom">
+                            {% for i in Dye_WIP %}
+                            <div class="float-left dye-WIP-div {{i['sOutColor']}} border-right progress-bar-striped">
+                                <div class="progress-bar dye-WIP {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                                    <div class="dye-WIP">
+                                        <span class="tag-pre-TJ"> 待染色{{i['sPerinner']}} </span> <br>
+                                        <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for i in YD_WIP %}
+                            <div class="float-left YD-WIP-div text-center {{i['sOutColor']}} progress-bar-striped">
+                                <div class="progress-bar YD-WIP {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                                    <div class="YD-WIP">
+                                        <span class="tag-pre-TJ"> 待预定{{i['sPerinner']}} </span> <br>
+                                        <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="float-left right-inner-inner border-right road text-center road-font">
+                    <span>↓</span>
+                </div>
+                <div class="float-left right-inner-right border-right">
+                    <div class="right-inner-right-top border-bottom">
+                        {% for i in FB_eq %}
+                        <div class="float-left FB-mac mac-font border-right text-center" style="background-color : {{i['sStatusColor']}}; border-top">
+                            <span>{{i['sEquipmentName']}}</span>
+                        </div>
+                        {% endfor %}
+                        <div class="float-left blank-div border-top default-div text-center">
+                            <span class="mac-font">经轴打卷区</span>
+                        </div>
+                    </div>
+                    <div class="right-inner-right-bottom">
+                        {% for i in SX_WIP %}
+                        <div class="SX-WIP-div float-left border-right text-center mac-font {{i['sOutColor']}} progress-bar-striped">
+                            <div class="progress-bar {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                                <div class="SX-WIP">
+                                    <span class="tag-pre-TJ"> 待水洗{{i['sPerinner']}} </span> <br>
+                                    <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for i in SX_eq %}
+                        <div class="SX-mac float-left border-right text-center mac-font" style="background-color : {{i['sStatusColor']}};">
+                            <span>{{i['sEquipmentName']}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- 脱水与定型之间道路 -->
+            <div class="TS-DX-road road road-font text-center">
+                <span>→</span>
+            </div>
+            <!-- 定型机放置区域 -->
+            <div class="DX-div border-bottom">
+                <div class="float-left border-right YB-WIP-div border-bottom">
+                    {% for i in YB_WIP %}
+                    <div class="YB-WIP border-bottom {{i['sOutColor']}} text-center mac-font progress-bar-striped">
+                        <div class="progress-bar YB-WIP {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                            <div class="YB-WIP-font">
+                                <span class="tag-pre-CD"> 待验{{i['sPerinner']}} </span> <br>
+                                <span class="tag-pre-CD"> {{i['sTDX']}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="YB-abn text-center mac-font default-div">
+                        <span>验布异常</span>
+                    </div>
+                </div>
+                <div class="YBWIP-CDmac-road border-right float-left road road-font text-center">
+                    <span>↓</span>
+                </div>
+                {% for i in DX_WIP %}
+                <div class="float-left CD-WIP border-right text-center mac-font {{i['sOutColor']}} progress-bar-striped">
+                    <div class="progress-bar CD-WIP {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                        <div class="CD-WIP-font">
+                            <span class="tag-pre-TJ"> 待成定{{i['sPerinner']}} </span> <br>
+                            <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% for i in DX_eq1 %}
+                <div class="float-left CD-mac border-right text-center mac-font" style="background-color : {{i['sStatusColor']}};">
+                    <span>{{i['sEquipmentName']}}</span>
+                </div>
+                {% endfor %}
+                <div class="CDmac-CDmac-road border-right float-left road road-font text-center">
+                    <span>↓</span>
+                </div>
+                {% for i in DX_eq2 %}
+                <div class="float-left CD-mac border-right text-center mac-font" style="background-color : {{i['sStatusColor']}};">
+                    <span>{{i['sEquipmentName']}}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- 定型区域与品管区域的道路 -->
+            <div class="DX-PG-road road border-bottom road-font text-center">
+                <span>→</span>
+            </div>
+            <!-- 品管区域 -->
+            <div class="PG-div border-bottom">
+                <div class="float-left DJ-div border-right">
+                    <div class="float-left DJ-div2 border-right">
+                        {% for i in DJ_eq %}
+                        <div class="DJ-mac text-center mac-font border-bottom" style="background-color : {{i['sStatusColor']}};">
+                            <span>{{i['sEquipmentName']}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% for i in DJ_WIP %}
+                    <div class="float-left mac-font DJ-WIP border-bottom text-center {{i['sOutColor']}} progress-bar-striped">
+                        <div class="progress-bar DJ-WIP {{i['sInnerColor']}} progress-bar-striped" role="progressbar"
+                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{i['sPerinner']}} ;">
+                            <div class="DJ-WIP-font">
+                                <span class="tag-pre-TJ"> 待包装{{i['sPerinner']}} </span> <br>
+                                <span class="tag-pre-TJ"> {{i['sTDX']}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="float-left road DJ-YB-road road-font text-center">
+                    <span>↑</span>
+                </div>
+                {% for i in YB_eq %}
+                <div class="float-left mac-font YB-mac border-right text-center" style="background-color : {{i['sStatusColor']}};">
+                    <span>{{i['sEquipmentName']}}</span>
+                </div>
+                {% endfor %}
+                <div class="PG-blank-div border-right float-left">
+                    <div class=" default-div text-center border-top">
+                        <span class="tag-pre-remark">机台颜色</span>
+                    </div>
+                    <div class=" text-center mac-div ">
+                        <div class=" float-left remark-div " style=" background-color:#3CB371 ">
+                            <span class="tag-pre-remark">机台开机</span>
+                        </div>
+                        <div class=" float-left remark-div border-bottom" style=" background-color:#FFA500 ">
+                            <span class="tag-pre-remark">机台停机</span>
+                        </div>
+                        <br>
+                        <div class=" default-div text-center border-top">
+                            <span class="tag-pre-remark">WIP颜色备注</span>
+                        </div>
+                        <div class=" text-center mac-div ">
+                            <div class=" float-left remark-div progress-bar-info progress-bar-striped">
+                                <span class="tag-pre-remark">正常</span>
+                            </div>
+                            <div class=" float-left remark-div progress-bar-warning progress-bar-striped">
+                                <span class="tag-pre-remark">异常</span>
+                            </div>
+                            <div class=" float-left remark-div progress-bar-danger progress-bar-striped">
+                                <span class="tag-pre-remark">超支</span>
+                            </div>
+                            <div class=" float-left remark-div progress-bar-success progress-bar-striped">
+                                <span class="tag-pre-remark">可用</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="JavaScript">
+        function myrefresh() {
+            window.location.reload();
+        }
+        setTimeout('myrefresh()', 100000); 
+    </script>
+</body>
+
+
+
+
+</html>
